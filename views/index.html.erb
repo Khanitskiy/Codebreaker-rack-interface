@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WEB page</title>
+    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  </head>
+  <body>
+    <div id="container">
+      <h1>Welcom to Codebreaker</h1>
+      <h4>For start the game, select the game settings, and then click to new game</h4>
+      <form method="post" action="/start_game">
+      <fieldset>
+        <legend>Select the number of attempts</legend>
+        <select name="attempts">
+          <% @select = String.new
+          i = 1
+          for i in 1..10
+            a = "selected" if i == 10
+            @select = @select << "<option value=\"#{i}\" #{a}>#{i}</option>"
+          end %>
+          <%= @select %>
+        </select>
+      </fieldset><br>
+      <fieldset>
+        <legend>Select the level of difficulty</legend>
+      </fieldset><br>
+      <% if @user_info == nil %>
+      <fieldset>
+      <legend>Enter your name</legend>
+        <input name="user_name" placeholder="Your name" type="text">
+      </fieldset><br>
+      <% else %>
+        Your name is <i><span style="color: green; font-size: 16px; font-weight: bold"><%= @user_info[0][:user_name] %></span></i>
+      <% end %>
+      <input type="submit" id="new_game_submit" value="New game">
+      </form>
+    </div>
+  </body>
+</html>

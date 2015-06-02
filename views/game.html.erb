@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WEB page</title>
+    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+  </head>
+  <body>
+    <div id="container_game">
+      <div id="content_left">
+	      <h1>Codebreaker Game</h1>
+
+           <p>The code-breaker then gets some number of chances to break the code. In each turn, the code-breaker makes a guess of four numbers. The code-maker then marks the guess with up to four + and - signs.</p>
+
+	      <% if @user_info[0][:game_condition] == 0 %>
+	      <span style=" float: left">
+		      <p>You have <b><%= @user_info[0][:attempts].to_i-@user_info[0][:attempts_count].to_i %></b> attemps</p>
+		      <form method="post" action="action">
+		      	<input type="text" name="user_code" size="4" style="width: 100px;" pattern="[1-6]{4}">
+		        <input type="submit" value="Go">
+		      </form><br>
+		      <% if @user_info[0][:hint_code] == '****' %>
+		         <form method="post" action="hint"><input style=" float: left" type="submit" value="Hint"></form>
+		      <% else %><%= @user_info[0][:hint_code] %>
+		      <% end %>
+	      </span>
+	      <% elsif @user_info[0][:game_condition] == true %>
+	        <h4>Congratulations you win</h4>
+	        <form method="post" action="start_game">
+	          <input style=" float: left" type="submit" value="Try again">
+	          <input type="hidden" name="attempts" value="<%= @user_info[0][:attempts] %>">
+	          <input type="hidden" name="user_name" value="<%= @user_info[0][:user_name] %>">
+	        </form>
+	      <% elsif @user_info[0][:game_condition] == false %>
+	        <h4>You loos. Secret code <%= @user_info[0][:secret_code].join %></h4>
+	        <form method="post" action="start_game">
+	          <input style=" float: left" type="submit" value="Try again">
+	          <input type="hidden" name="attempts" value="<%= @user_info[0][:attempts] %>">
+	          <input type="hidden" name="user_name" value="<%= @user_info[0][:user_name] %>">
+	        </form>
+	      <% end %>
+	      <span style="float: right; margin-right: 80px;" >
+	       	<% @user_info.each { |x| %> <%= x[0].to_s %><%= '&nbsp;&nbsp;' %> <%= x[1].to_s %><%= '<br>' %> <% } %><br>
+	      </span>      
+      </div>
+      <div id="content_right">
+      	<center><h1>Results</h1></center>
+      	<% result = @results.sort_by { |a| a[0][:time] } %>
+		<% for i in 0..result.length-1
+		      break if i == 10
+		%>   <%= "#{i+1}".concat(')') %>
+		   	 <%= result[i].to_a[0][:user_name] %> : <%= result[i].to_a[0][:time].to_s.concat(' (sec)') %>
+		   	 <%= '<br><br>' %>
+		<% end %>
+      	<div class="clear"></div>
+      </div>
+    </div>
+  </body>
+</html>
+<span style="color: #4b7399"><%= @user_info %></span>

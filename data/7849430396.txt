@@ -1,0 +1,12 @@
+---
+- :user_name: Dima
+  :attempts: 10
+  :hint_code: "****"
+  :attempts_count: 0
+  :secret_code:
+  - '2'
+  - '5'
+  - '3'
+  - '5'
+  :game_condition: 0
+  :start_time: 1433231592

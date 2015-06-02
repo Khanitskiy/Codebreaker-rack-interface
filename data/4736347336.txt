@@ -1,0 +1,11 @@
+---
+- :user_name: Dima
+  :attempts: '10'
+  :hint: false
+  :hint_code: "****"
+  :attempts_count: 0
+  :secret_code:
+  - '2'
+  - '5'
+  - '6'
+  - '6'
